@@ -1,0 +1,96 @@
+<!doctype html>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Game</title>
+<style>
+@font-face {
+  font-family: 'Syne Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/SyneMono-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: normal;
+  src: url(assets/OxygenMono-Regular.woff) format('woff');
+}    
+    
+.hud {
+    margin: 10px;
+}
+    
+.hud-topright {
+    text-align: right;
+}
+    
+.game {
+    font-family: 'Oxygen Mono', monospace;
+    font-size: 12pt;
+    max-width: 512px; 
+    min-width: 375px;    
+}
+    
+#hud-eta {
+    font-size: 20pt;
+}
+
+.gameover {
+    text-align: center;
+    color: white;
+    margin: 50px;
+}
+    
+#gameover-lose {
+    font-size: 48pt;
+}
+    
+#gameover-win {
+    font-size: 32pt;
+}
+    
+#gameover-win .score {
+    font-size: 22pt;
+}
+    
+.message:not(.active) {
+    display: none !important;
+}
+    
+</style>
+<canvas style="height: 100%; width: 100%; z-index: 1; position: absolute; left: 0px; top: 0px;" width="256" height="256" id="input"></canvas>    
+
+<div style="display: flex; width: 100%; height: 100%">
+<div style="display: flex; align-items: center; width: 100%; height: 100%; flex-direction: column">
+<div style="display: grid; margin-bottom: 10px; border: 1px solid #ddd" class="game">
+    <canvas style="grid-column: 1/3; grid-row: 1/3; max-width: 512px; min-width: 375px; width: 100%; z-index: -1" width="256" height="256" id="game-canvas"></canvas>
+    <div class="hud hud-topright message" style="grid-column: 2; grid-row: 1; z-index: 1; color: white">Score <br> <span id="hud-eta"></span></div>
+    <div style="grid-column: 1/3; grid-row: 1/3; display: flex; flex-direction: column; align-items: center; justify-content: center" id="gameover">
+        <div class="message gameover" id="gameover-win" style="display: flex; align-items: center; justify-content: center; flex-direction: column">
+            <div style="margin-bottom: 20px">
+            😃
+            </div>
+            <div class="score" style="text-align: left">
+            Time: <span id="win-time">55</span>
+            </div>
+        </div>
+        <div class="message gameover" id="gameover-lose">
+            Game Over
+        </div>    
+    </div>
+</div>
+</div>    
+<div>
+    <canvas style="max-width: 512px; min-width: 375px; width: 100%; z-index: -1" width="256" height="256" id="physics-canvas"></canvas>
+</div>
+</div>
+            
+
+<div id="logger"></div>
+
+<script type="module">
+import {run} from "./src/game.js";
+run();
+</script>
